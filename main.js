@@ -33,30 +33,35 @@
 // }
 
 
-//Initiate a empty div and be empty
-function Calculator(displayElement){
+function Calculate(displayElement){
   this.displayElement = displayElement
-  this.currentValue = ''
+  this.currentValue = ' '
 }
 
-//Add content to the div 
-Calculator.prototype.append = function(value){
-  if(value =='=')return;
+Calculate.prototype.append = function(value){
+  if(value === '=')return;
   this.currentValue += value
   this.displayElement.textContent = this.currentValue
 }
 
-//calculate based off the div input
-Calculator.prototype.calculate = function(){
-  this.currentValue = String(
+Calculate.prototype.calculate = function(){
+  this.currentValue = String (
     Function(`return ${this.currentValue}`)()
   )
   this.displayElement.textContent = this.currentValue
 }
 
 const display = document.querySelector('.rectangle')
-const calculator = new calculator(display)
+const calculator = new Calculate(display)
 
-document.querySelectorAll('button').forEach(buttons => buttons.addEventListener('click', ()=>{
-  
-}))
+document.querySelectorAll('button').forEach(button => {
+  button.addEventListener('click', () =>{
+   const value = button.textContent
+
+    if(value ==='='){
+      calculator.calculate()
+    }else {
+      calculator.append(value)
+    }
+  })
+}) 
